@@ -1,0 +1,13 @@
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  flex-shrink: 1;
+  gap: 12px;
+}
+
+.item {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid antiquewhite;
+}
