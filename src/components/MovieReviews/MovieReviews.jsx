@@ -38,7 +38,7 @@ const MovieReviews = () => {
           </li>
         ))
       ) : (
-        <li>There is no reviews 😔.</li>
+        <li>There are no reviews 😔.</li>
       )}
       {error && <p>{error}</p>}
     </ul>
