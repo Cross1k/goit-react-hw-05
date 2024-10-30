@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { MovieCredit } from "../../fetchMoviesAPI";
 
 import css from "./MovieCast.module.css";
+import Loader from "../Loader/Loader";
 
 const MovieCast = () => {
   const { movieId } = useParams();
@@ -21,9 +22,8 @@ const MovieCast = () => {
     fetchMovie();
   }, [movieId]);
   {
-    if (!cast) return <p>loading</p>;
+    if (!cast) return <Loader />;
   }
-
   return (
     <ul className={css.list}>
       {cast?.length !== 0 ? (

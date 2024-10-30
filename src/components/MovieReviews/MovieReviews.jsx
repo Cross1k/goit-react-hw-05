@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { MovieReview } from "../../fetchMoviesAPI";
 
 import css from "./MovieReviews.module.css";
+import Loader from "../Loader/Loader";
 
 const MovieReviews = () => {
   const { movieId } = useParams();
@@ -24,7 +25,7 @@ const MovieReviews = () => {
   }, [movieId]);
 
   {
-    if (!reviews) return <p>loading</p>;
+    if (!reviews) return <Loader />;
   }
 
   return (

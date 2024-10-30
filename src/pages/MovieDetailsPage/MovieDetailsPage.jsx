@@ -18,6 +18,7 @@ const MovieDetailsPage = () => {
   const { movieId } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
+  console.log(location);
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -26,33 +27,34 @@ const MovieDetailsPage = () => {
         const data = await MovieDetails(movieId);
         setMovie(data);
       } catch (error) {
-        // console.log(error);
         setError(error.message);
       }
     };
     fetchMovie();
   }, [movieId]);
 
-  const backUrl = location.state?.from ?? "/movies";
+  const backUrl = location.state ?? "/movies";
   const goBack = () => navigate(backUrl);
 
   const buildCssClasses = ({ isActive }) => clsx(isActive && css.active);
 
   return (
     <div>
-      <button onClick={goBack} className={css.btn}>
-        back
+      <button type="button" onClick={goBack} className={css.btn}>
+        Back to previous page
       </button>
       {!movie ? (
         <p>{error}</p>
       ) : (
         <div>
           <div className={css.info}>
-            <img
-              src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-              alt={movie.tagline}
-              className={css.img}
-            />
+            <div className={css.imgContainer}>
+              <img
+                className={css.img}
+                src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+                alt={movie.tagline}
+              />
+            </div>
             <div>
               <h3 className={css.title}>{movie.original_title}</h3>
               <p className={css.overview}>{movie.overview}</p>
@@ -67,7 +69,7 @@ const MovieDetailsPage = () => {
             <li>
               <NavLink
                 className={buildCssClasses}
-                state={{ from: backUrl ?? "/movies" }}
+                state={backUrl ?? "/movies"}
                 to="reviews"
               >
                 Reviews
@@ -76,7 +78,7 @@ const MovieDetailsPage = () => {
             <li>
               <NavLink
                 className={buildCssClasses}
-                state={{ from: backUrl ?? "/movies" }}
+                state={backUrl ?? "/movies"}
                 to="cast"
               >
                 Cast

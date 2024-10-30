@@ -6,10 +6,19 @@
   position: absolute;
 }
 
-.img {
+.imgContainer {
   width: 400px;
   height: 600px;
   margin-right: 40px;
+  border-top-left-radius: 8px;
+  flex-shrink: 0;
+  object-fit: cover;
+  overflow: hidden;
+}
+
+.img {
+  width: 400px;
+  height: 600px;
 }
 
 .title {
