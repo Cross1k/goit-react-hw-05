@@ -11,10 +11,12 @@ import { MovieDetails } from "../../fetchMoviesAPI";
 
 import css from "./MovieDetailsPage.module.css";
 import { clsx } from "clsx";
+import Loader from "../../components/Loader/Loader";
 
 const MovieDetailsPage = () => {
   const [movie, setMovie] = useState(null);
   const [error, setError] = useState(null);
+  const [laoding, setLoading] = useState(false);
   const { movieId } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
@@ -23,11 +25,14 @@ const MovieDetailsPage = () => {
   useEffect(() => {
     const fetchMovie = async () => {
       try {
+        setLoading(true);
         setError(null);
         const data = await MovieDetails(movieId);
         setMovie(data);
       } catch (error) {
         setError(error.message);
+      } finally {
+        setLoading(false);
       }
     };
     fetchMovie();
@@ -38,11 +43,14 @@ const MovieDetailsPage = () => {
 
   const buildCssClasses = ({ isActive }) => clsx(isActive && css.active);
 
-  return (
+  return laoding ? (
+    <Loader />
+  ) : (
     <div>
       <button type="button" onClick={goBack} className={css.btn}>
         Back to previous page
       </button>
+
       {!movie ? (
         <p>{error}</p>
       ) : (
